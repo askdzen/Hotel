@@ -17,6 +17,7 @@ public class Hotel {
     }
     public void add(Room room){
         rooms.add(room);
+        roomCount++;
 
     }
     public BigDecimal getTotalRoomsCost(){
@@ -28,4 +29,18 @@ public class Hotel {
     public void show(){
         System.out.println(rooms);
     }
+
+    @Override
+    public String toString() {
+
+        return "Hotel{" +
+                "name='" + name + '\'' +
+                ", address='" + address + '\'' +
+                ", roomCount=" + roomCount +
+                ", rooms:"+"\n"+  rooms.subList(0,10)+
+                '}';
+
+
+    }
+
 }

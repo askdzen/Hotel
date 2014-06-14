@@ -10,4 +10,5 @@ Room room = RoomFactory.createRandomTenement();
     }
     return hotel;
     }
+
 }
