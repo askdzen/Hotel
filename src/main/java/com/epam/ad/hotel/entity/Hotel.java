@@ -6,27 +6,31 @@ import java.util.List;
 
 public class Hotel {
     private String name;
-    private  String address;
+    private String address;
     private int roomCount;
-    private List<Room> rooms =new ArrayList<Room>();
+    private List<Room> rooms = new ArrayList<Room>();
 
-    public  Hotel(String name,String address){
-        this.name=name;
-        this.address=address;
+    public Hotel(String name, String address) {
+        this.name = name;
+        this.address = address;
 
     }
-    public void add(Room room){
+
+    public void add(Room room) {
         rooms.add(room);
         roomCount++;
 
     }
-    public BigDecimal getTotalRoomsCost(){
-        BigDecimal totalcost=BigDecimal.ZERO;
+
+    public BigDecimal getTotalRoomsCost() {
+        BigDecimal totalCost = BigDecimal.ZERO;
         for (Room room : rooms) {
-            totalcost=totalcost.add(room.GetCurrentCost());
-        } return totalcost;
+            totalCost = totalCost.add(room.getCurrentCost());
+        }
+        return totalCost;
     }
-    public void show(){
+
+    public void show() {
         System.out.println(rooms);
     }
 
@@ -37,7 +41,7 @@ public class Hotel {
                 "name='" + name + '\'' +
                 ", address='" + address + '\'' +
                 ", roomCount=" + roomCount +
-                ", rooms:"+"\n"+  rooms.subList(0,10)+
+                ", rooms:" + "\n" + rooms.subList(0, 10) +
                 '}';
 
 
