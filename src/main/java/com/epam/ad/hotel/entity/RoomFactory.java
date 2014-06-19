@@ -20,7 +20,7 @@ public class RoomFactory {
                 ResidentRoom residentRoom2 = new ResidentRoom.ResidentRoomBuilder().breakfast(true).wiFi(false).roomType(roomType.DOOBLEROOM).initialCost(BigDecimal.valueOf(700)).build();
                 room = residentRoom2;
                 break;
-            case 3:
+           case 3:
                 ConferenceRoom conferenceroom = new ConferenceRoom.ConferenceRoomBuilder().size(50).numberOfSeats(15).initialCost(BigDecimal.valueOf(2500)).build();
                 room = conferenceroom;
                 break;

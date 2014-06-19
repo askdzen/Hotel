@@ -2,7 +2,7 @@ package com.epam.ad.hotel.entity;
 
 import java.math.BigDecimal;
 
-public abstract class Room { //арендуемое помещение
+public abstract class Room implements Comparable<Room>{ //арендуемое помещение
 
     BigDecimal price;   //стоимость за час
 

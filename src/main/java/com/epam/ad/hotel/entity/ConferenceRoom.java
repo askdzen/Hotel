@@ -37,9 +37,15 @@ public class ConferenceRoom extends Room {
     @Override
     public String toString() {
         return "ConferenceRoom{" +
+                "price='"+price+'\''+
                 "square=" + square +
                 ", seatsNumber=" + seatsNumber +
                 '}' + "\n";
+    }
+
+    @Override
+    public int compareTo(Room anotherRoom) {
+        return this.price.compareTo(anotherRoom.price);
     }
 
     public static class ConferenceRoomBuilder {

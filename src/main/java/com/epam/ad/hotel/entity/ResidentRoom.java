@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 
 enum roomType {SINGLEROOM, DOOBLEROOM, TRIPLEROOM};
 
-public class ResidentRoom extends Room {
+public class ResidentRoom extends Room implements Cloneable {
 
     private Boolean breakfast;
     private Boolean wiFi;
@@ -20,6 +20,7 @@ public class ResidentRoom extends Room {
     @Override
     public String toString() {
         return "ResidentRoom{" +
+                "price='"+price+'\''+
                 "roomType='" + roomType + '\'' +
                 ", breakfast=" + breakfast +
                 ", wiFi=" + wiFi + "}" +
@@ -55,6 +56,12 @@ public class ResidentRoom extends Room {
         this.wiFi = wiFi;
     }
 
+    @Override
+    public int compareTo(Room anotherRoom) {
+        return this.price.compareTo(anotherRoom.price);
+    }
+
+
     public static class ResidentRoomBuilder {
         private BigDecimal price = BigDecimal.ZERO;
         private Boolean breakfast = false;
@@ -85,4 +92,5 @@ public class ResidentRoom extends Room {
             return new ResidentRoom(this);
         }
     }
+
 }
