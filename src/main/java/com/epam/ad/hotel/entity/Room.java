@@ -2,7 +2,7 @@ package com.epam.ad.hotel.entity;
 
 import java.math.BigDecimal;
 
-public abstract class Room implements Comparable<Room> { //арендуемое помещение
+public abstract class Room implements Comparable<Room>,Cloneable { //арендуемое помещение
     public static final int[] FLOOR = new int[5];
     public static final int[] ROOM = new int[25];
     String randomNumber;

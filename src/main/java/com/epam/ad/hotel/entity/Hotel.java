@@ -31,7 +31,10 @@ public class Hotel implements Cloneable {
     protected Hotel clone() {
         try {
             Hotel clone = (Hotel) super.clone();
-            clone.mainBuildRooms = new ArrayList<Room>(this.mainBuildRooms);
+            List<Room> cloneRooms = new ArrayList<Room>();
+            for (Room room : this.mainBuildRooms) {
+                cloneRooms.add(room);
+            }
             return clone;
         } catch (CloneNotSupportedException e) {
             new AssertionError();
@@ -39,8 +42,10 @@ public class Hotel implements Cloneable {
         return null;
     }
 
-    public void sortSecondBuilding(Comparator<ResidentRoom> comparator) {
-        Collections.sort(secondBuildingRooms, comparator);
+    public Hotel sortSecondBuilding(Comparator<ResidentRoom> comparator) {
+        Hotel clone = clone();
+        Collections.sort(clone.secondBuildingRooms, comparator);
+        return clone;
     }
 
     public void add(ResidentRoom room) {

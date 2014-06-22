@@ -6,17 +6,19 @@ import org.apache.log4j.Logger;
 import java.math.BigDecimal;
 
 public class Runner implements Cloneable {
-public static final Logger LOGGER=Logger.getLogger(Runner.class);
+    public static final Logger LOGGER = Logger.getLogger(Runner.class);
+
     public static void main(String[] args) throws CloneNotSupportedException {
 
         Hotel hotel = HotelFactory.createRandomHotel();
         hotel.sortRooms();
+
         hotel.sortSecondBuilding(ResidentRoom.RESIDENT_ROOM_COMPARATOR);
-        LOGGER.info("Вывод комнат главного корпуса, отсортированного по цене и второго корпуса отсортированного по номеру");
+        LOGGER.info("Conclusion rooms of the main building, sorted by price and second building sorted by number:");
         LOGGER.info(hotel);
-        LOGGER.info("Вывод комнат второго корпуса с ценой не выше 1000");
+        LOGGER.info("Conclusion rooms on the second building at a price not higher than 1000");
         LOGGER.info(hotel.findResidentRoomsByPriceUpLimit(BigDecimal.valueOf(1000)));
-        LOGGER.info("Вывод комнат второго корпуса с ценой не ниже 700");
+        LOGGER.info("Conclusion rooms on the second building at a price not lower than 700");
         LOGGER.info(hotel.findResidentRoomsByPriceDownLimit(BigDecimal.valueOf(700)));
     }
 }

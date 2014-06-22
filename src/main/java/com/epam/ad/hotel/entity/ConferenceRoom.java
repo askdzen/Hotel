@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.util.Comparator;
 
 public class ConferenceRoom extends Room {
-    public static final Comparator<ConferenceRoom> SQUARE_COMPORATOR = new SquareComporator();
+
     private int square;
     private int seatsNumber;
 
@@ -70,10 +70,4 @@ public class ConferenceRoom extends Room {
         }
     }
 
-    public static class SquareComporator implements Comparator<ConferenceRoom> {
-        @Override
-        public int compare(ConferenceRoom o1, ConferenceRoom o2) {
-            return Integer.compare(o1.square, o2.square);
-        }
-    }
 }
