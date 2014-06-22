@@ -4,30 +4,47 @@ import java.math.BigDecimal;
 import java.util.Random;
 
 public class RoomFactory {
-    public static Room createRandomTenement() {
+    public static Room createRandomRoom() {
         Room room = null;
         int x = new Random().nextInt(5);
         switch (x) {
             case 0:
-                ResidentRoom residentRoom = new ResidentRoom.ResidentRoomBuilder().breakfast(false).roomType(roomType.SINGLEROOM).wiFi(false).initialCost(BigDecimal.valueOf(500)).build();
-                room = residentRoom;
-                break;
+                return new ResidentRoom.Builder()
+
+                        .breakfast(false)
+                        .roomType(ResidentRoom.Type.SINGLEROOM)
+                        .wiFi(false)
+                        .initialCost(BigDecimal.valueOf(ResidentRoom.SINGLEROOM_PRICE))
+                        .build();
+
             case 1:
-                ResidentRoom residentRoom1 = new ResidentRoom.ResidentRoomBuilder().roomType(roomType.TRIPLEROOM).breakfast(true).wiFi(true).initialCost(BigDecimal.valueOf(1000)).build();
-                room = residentRoom1;
-                break;
+                return new ResidentRoom.Builder()
+                        .roomType(ResidentRoom.Type.TRIPLEROOM)
+                        .breakfast(true)
+                        .wiFi(true)
+                        .initialCost(BigDecimal.valueOf(ResidentRoom.TRIPLEROOM_PRICE))
+                        .build();
+
             case 2:
-                ResidentRoom residentRoom2 = new ResidentRoom.ResidentRoomBuilder().breakfast(true).wiFi(false).roomType(roomType.DOOBLEROOM).initialCost(BigDecimal.valueOf(700)).build();
-                room = residentRoom2;
-                break;
-           case 3:
-                ConferenceRoom conferenceroom = new ConferenceRoom.ConferenceRoomBuilder().size(50).numberOfSeats(15).initialCost(BigDecimal.valueOf(2500)).build();
-                room = conferenceroom;
-                break;
+                return new ResidentRoom.Builder()
+                        .breakfast(true).wiFi(false)
+                        .roomType(ResidentRoom.Type.DOOBLEROOM)
+                        .initialCost(BigDecimal.valueOf(ResidentRoom.DOUBLEROOM_PRICE))
+                        .build();
+
+            case 3:
+                return new ConferenceRoom.Builder()
+                        .size(50)
+                        .numberOfSeats(15)
+                        .initialCost(BigDecimal.valueOf(2500))
+                        .build();
+
             case 4:
-                ConferenceRoom conferenceroom1 = new ConferenceRoom.ConferenceRoomBuilder().size(100).numberOfSeats(30).initialCost(BigDecimal.valueOf(5000)).build();
-                room = conferenceroom1;
-                break;
+                return new ConferenceRoom.Builder()
+                        .size(100)
+                        .numberOfSeats(30)
+                        .initialCost(BigDecimal.valueOf(5000))
+                        .build();
 
 
         }
@@ -35,4 +52,40 @@ public class RoomFactory {
 
 
     }
+
+    public static ResidentRoom createRandomResidentRoom() {
+        ResidentRoom room = null;
+        int x = new Random().nextInt(3);
+        switch (x) {
+            case 0:
+                return new ResidentRoom.Builder()
+
+                        .breakfast(false)
+                        .roomType(ResidentRoom.Type.SINGLEROOM)
+                        .wiFi(false)
+                        .initialCost(BigDecimal.valueOf(ResidentRoom.SINGLEROOM_PRICE))
+                        .build();
+
+            case 1:
+                return new ResidentRoom.Builder()
+                        .roomType(ResidentRoom.Type.TRIPLEROOM)
+                        .breakfast(true)
+                        .wiFi(true)
+                        .initialCost(BigDecimal.valueOf(ResidentRoom.TRIPLEROOM_PRICE))
+                        .build();
+
+            case 2:
+                return new ResidentRoom.Builder()
+                        .breakfast(true).wiFi(false)
+                        .roomType(ResidentRoom.Type.DOOBLEROOM)
+                        .initialCost(BigDecimal.valueOf(ResidentRoom.DOUBLEROOM_PRICE))
+                        .build();
+
+
+        }
+        return room;
+
+
+    }
+
 }

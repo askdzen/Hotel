@@ -2,13 +2,16 @@ package com.epam.ad.hotel.entity;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
-public class Hotel extends Room implements Comparable<Room>{
+public class Hotel implements Cloneable {
+    public List<Room> mainBuildRooms = new ArrayList<Room>();
+    public List<ResidentRoom> secondBuildingRooms = new ArrayList<ResidentRoom>();
     private String name;
     private String address;
     private int roomCount;
-    public List<Room> rooms = new ArrayList<Room>();
 
     public Hotel(String name, String address) {
         this.name = name;
@@ -16,22 +19,47 @@ public class Hotel extends Room implements Comparable<Room>{
 
     }
 
+    public Hotel sortRooms() throws CloneNotSupportedException {
+        Hotel clone = clone();
+        //clone.add(RoomFactory.createRandomRoom());
+        Collections.sort(clone.mainBuildRooms);
+        //System.out.println(clone);
+        return clone;
+    }
+
+    @Override
+    protected Hotel clone() {
+        try {
+            Hotel clone = (Hotel) super.clone();
+            clone.mainBuildRooms = new ArrayList<Room>(this.mainBuildRooms);
+            return clone;
+        } catch (CloneNotSupportedException e) {
+            new AssertionError();
+        }
+        return null;
+    }
+
+    public void sortSecondBuilding(Comparator<ResidentRoom> comparator) {
+        Collections.sort(secondBuildingRooms, comparator);
+    }
+
+    public void add(ResidentRoom room) {
+        secondBuildingRooms.add(room);
+        roomCount++;
+    }
+
     public void add(Room room) {
-        rooms.add(room);
+        mainBuildRooms.add(room);
         roomCount++;
 
     }
 
     public BigDecimal getTotalRoomsCost() {
         BigDecimal totalCost = BigDecimal.ZERO;
-        for (Room room : rooms) {
+        for (Room room : mainBuildRooms) {
             totalCost = totalCost.add(room.getCurrentCost());
         }
         return totalCost;
-    }
-
-    public void show() {
-        System.out.println(rooms);
     }
 
     @Override
@@ -41,21 +69,37 @@ public class Hotel extends Room implements Comparable<Room>{
                 "name='" + name + '\'' +
                 ", address='" + address + '\'' +
                 ", roomCount=" + roomCount +
-                ", rooms:" + "\n" + rooms.subList(0, 50) +
+                ", Total Cost=" + getTotalRoomsCost() +
+                ", mainBuildRooms:" + "\n" + mainBuildRooms.subList(0, 50) +
+                ", secondBuildingRooms:" + "\n" + secondBuildingRooms.subList(0, 50) +
                 '}';
 
 
     }
 
+    public List<ResidentRoom> findResidentRoomsByPriceUpLimit(BigDecimal upLimit) {
+        List<ResidentRoom> result = new ArrayList<ResidentRoom>();
 
-    @Override
-    public int compareTo(Room anotherRoom) {
-return super.price.compareTo(anotherRoom.price);
-        //return this.rooms.indexOf(compareTo(anotherRoom));
+        for (ResidentRoom room : secondBuildingRooms) {
+
+            if (room.getCurrentCost().compareTo(upLimit) < 0) {
+                result.add(room);
+            }
+        }
+        return result;
     }
 
-    @Override
-    public BigDecimal getCurrentCost() {
-        return null;
+    public List<ResidentRoom> findResidentRoomsByPriceDownLimit(BigDecimal downLimit) {
+        List<ResidentRoom> result = new ArrayList<ResidentRoom>();
+
+        for (ResidentRoom room : secondBuildingRooms) {
+
+            if (room.getCurrentCost().compareTo(downLimit) > 0) {
+                result.add(room);
+            }
+        }
+        return result;
     }
+
+
 }

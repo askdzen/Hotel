@@ -1,12 +1,14 @@
 package com.epam.ad.hotel.entity;
 
 import java.math.BigDecimal;
+import java.util.Comparator;
 
 public class ConferenceRoom extends Room {
+    public static final Comparator<ConferenceRoom> SQUARE_COMPORATOR = new SquareComporator();
     private int square;
     private int seatsNumber;
 
-    public ConferenceRoom(ConferenceRoomBuilder builder) {
+    public ConferenceRoom(Builder builder) {
         square = builder.square;
         seatsNumber = builder.seatsNumber;
         price = builder.price;
@@ -37,33 +39,28 @@ public class ConferenceRoom extends Room {
     @Override
     public String toString() {
         return "ConferenceRoom{" +
-                "price='"+price+'\''+
+                "price='" + price + '\'' +
                 "square=" + square +
                 ", seatsNumber=" + seatsNumber +
                 '}' + "\n";
     }
 
-    @Override
-    public int compareTo(Room anotherRoom) {
-        return this.price.compareTo(anotherRoom.price);
-    }
-
-    public static class ConferenceRoomBuilder {
+    public static class Builder {
         private int square = 0;
         private int seatsNumber = 0;
         private BigDecimal price = BigDecimal.ZERO;
 
-        public ConferenceRoomBuilder size(int val) {
+        public Builder size(int val) {
             square = val;
             return this;
         }
 
-        public ConferenceRoomBuilder numberOfSeats(int val) {
+        public Builder numberOfSeats(int val) {
             seatsNumber = val;
             return this;
         }
 
-        public ConferenceRoomBuilder initialCost(BigDecimal val) {
+        public Builder initialCost(BigDecimal val) {
             price = val;
             return this;
         }
@@ -73,4 +70,10 @@ public class ConferenceRoom extends Room {
         }
     }
 
+    public static class SquareComporator implements Comparator<ConferenceRoom> {
+        @Override
+        public int compare(ConferenceRoom o1, ConferenceRoom o2) {
+            return Integer.compare(o1.square, o2.square);
+        }
+    }
 }

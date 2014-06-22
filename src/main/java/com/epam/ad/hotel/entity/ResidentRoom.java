@@ -1,27 +1,35 @@
 package com.epam.ad.hotel.entity;
 
 import java.math.BigDecimal;
+import java.util.Comparator;
+import java.util.Random;
 
-enum roomType {SINGLEROOM, DOOBLEROOM, TRIPLEROOM};
+;
 
-public class ResidentRoom extends Room implements Cloneable {
+public class ResidentRoom extends Room {
 
+    public static final int SINGLEROOM_PRICE = 500;
+    public static final int DOUBLEROOM_PRICE = 700;
+    public static final int TRIPLEROOM_PRICE = 1000;
+    public static final Comparator<ResidentRoom> RESIDENT_ROOM_COMPARATOR = new randomNumberComparator();
     private Boolean breakfast;
     private Boolean wiFi;
-    private roomType roomType;
+    private Type type;
 
-    public ResidentRoom(ResidentRoomBuilder builder) {
+    public ResidentRoom(Builder builder) {
         price = builder.price;
-        roomType = builder.roomType;
+        type = builder.type;
         breakfast = builder.breakfast;
         wiFi = builder.wiFi;
+        randomNumber = builder.randomNumber;
     }
 
     @Override
     public String toString() {
         return "ResidentRoom{" +
-                "price='"+price+'\''+
-                "roomType='" + roomType + '\'' +
+                "roomNumber='" + randomNumber + '\'' +
+                "price='" + price + '\'' +
+                "Type='" + type + '\'' +
                 ", breakfast=" + breakfast +
                 ", wiFi=" + wiFi + "}" +
                 "\n";
@@ -32,12 +40,12 @@ public class ResidentRoom extends Room implements Cloneable {
         return price;
     }
 
-    public roomType getRoomType() {
-        return roomType;
+    public Type getType() {
+        return type;
     }
 
-    public void setRoomType(roomType roomType) {
-        this.roomType = roomType;
+    public void setType(Type type) {
+        this.type = type;
     }
 
     public Boolean getBreakfast() {
@@ -56,34 +64,37 @@ public class ResidentRoom extends Room implements Cloneable {
         this.wiFi = wiFi;
     }
 
-    @Override
-    public int compareTo(Room anotherRoom) {
-        return this.price.compareTo(anotherRoom.price);
-    }
 
+    static enum Type {SINGLEROOM, DOOBLEROOM, TRIPLEROOM}
 
-    public static class ResidentRoomBuilder {
+    public static class Builder {
         private BigDecimal price = BigDecimal.ZERO;
         private Boolean breakfast = false;
         private Boolean wiFi = false;
-        private roomType roomType;
+        private Type type;
+        private String randomNumber = getRandomNumber();
 
-        public ResidentRoomBuilder roomType(roomType val) {
-            roomType = val;
+        public Builder randomNumber(String val) {
+            randomNumber = val;
             return this;
         }
 
-        public ResidentRoomBuilder initialCost(BigDecimal val) {
+        public Builder roomType(Type val) {
+            type = val;
+            return this;
+        }
+
+        public Builder initialCost(BigDecimal val) {
             price = val;
             return this;
         }
 
-        public ResidentRoomBuilder breakfast(Boolean val) {
+        public Builder breakfast(Boolean val) {
             breakfast = val;
             return this;
         }
 
-        public ResidentRoomBuilder wiFi(Boolean val) {
+        public Builder wiFi(Boolean val) {
             wiFi = val;
             return this;
         }
@@ -91,6 +102,19 @@ public class ResidentRoom extends Room implements Cloneable {
         public ResidentRoom build() {
             return new ResidentRoom(this);
         }
+
+        public String getRandomNumber() {
+            Random random = new Random();
+            int randomFloor = random.nextInt(Room.FLOOR.length);
+            int randomRoom = random.nextInt(Room.ROOM.length);
+            return String.valueOf(randomFloor) + String.valueOf(randomRoom);
+        }
     }
 
+    private static class randomNumberComparator implements Comparator<ResidentRoom> {
+        @Override
+        public int compare(ResidentRoom o1, ResidentRoom o2) {
+            return o1.randomNumber.compareTo(o2.randomNumber);
+        }
+    }
 }

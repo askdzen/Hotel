@@ -5,10 +5,13 @@ public class HotelFactory {
         Hotel hotel = new Hotel("California", "USA");
 
         for (int i = 0; i < 50; i++) {
-            Room room = RoomFactory.createRandomTenement();
+            Room room = RoomFactory.createRandomRoom();
             hotel.add(room);
+            ResidentRoom room1 = RoomFactory.createRandomResidentRoom();
+            hotel.add(room1);
         }
         return hotel;
     }
+
 
 }
