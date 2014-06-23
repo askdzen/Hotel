@@ -16,7 +16,7 @@ public class Runner implements Cloneable {
         hotel.sortSecondBuilding(ResidentRoom.RESIDENT_ROOM_COMPARATOR);
         LOGGER.info("Conclusion rooms of the main building, sorted by price and second building sorted by number:");
         LOGGER.info(hotel);
-        LOGGER.info("Conclusion rooms on the second building at a price not higher than 1000 and not lower than 700");
+        LOGGER.info("Conclusion rooms on the second building at a price not higher than 1000 and not lower than 500");
         LOGGER.info(hotel.findResidentRoomsByPriceLimit(BigDecimal.valueOf(1000), BigDecimal.valueOf(500)));
 
     }
