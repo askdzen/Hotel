@@ -82,18 +82,18 @@ public class Hotel implements Cloneable {
 
     }
 
-    public List<ResidentRoom> findResidentRoomsByPriceUpLimit(BigDecimal upLimit) {
+    public List<ResidentRoom> findResidentRoomsByPriceLimit(BigDecimal upLimit, BigDecimal downLimit) {
         List<ResidentRoom> result = new ArrayList<ResidentRoom>();
 
         for (ResidentRoom room : secondBuildingRooms) {
 
-            if (room.getCurrentCost().compareTo(upLimit) < 0) {
+            if ((room.getCurrentCost().compareTo(upLimit) < 0) && (room.getCurrentCost().compareTo(downLimit) > 0)) {
                 result.add(room);
             }
         }
         return result;
     }
-
+/*
     public List<ResidentRoom> findResidentRoomsByPriceDownLimit(BigDecimal downLimit) {
         List<ResidentRoom> result = new ArrayList<ResidentRoom>();
 
@@ -105,6 +105,6 @@ public class Hotel implements Cloneable {
         }
         return result;
     }
-
+*/
 
 }
